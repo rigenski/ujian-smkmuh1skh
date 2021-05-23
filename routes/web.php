@@ -23,11 +23,12 @@ Route::get('/', 'HomeController@index');
 Route::get('/login', 'AuthController@login')->name('login');
 Route::post('/check', 'HomeController@check')->name('exportPDF');
 
-Route::post('/postLogin', 'AuthController@postLogin');
-Route::get('/logout', 'AuthController@logout');
+Route::post('/postLogin', 'AuthController@postLogin')->name('post-login');
+Route::get('/logout', 'AuthController@logout')->name('logout');
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin', 'HomeController@admin')->name('admin');
+    // Route::get('/admin/search', 'HomeController@search')->name('search');
     Route::post('/admin/student/import', 'HomeController@import')->name('import');
-    Route::get('/admin/student/{student}/enable', 'HomeController@enable');
+    Route::get('/admin/student/{student}/enable', 'HomeController@enable')->name('enable');
 });

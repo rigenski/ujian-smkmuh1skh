@@ -22,9 +22,13 @@ class HomeController extends Controller
             $query = request('query');
             $data = Student::all();
 
-            $students = Student::where("nama", "like", "%$query%")->paginate(50);
+            $students = Student::where("nama", "like", "%$query%")
+                ->orWhere('nis', 'LIKE', '%' . $query . '%')
+                ->orWhere('kelas', 'LIKE', '%' . $query . '%')
+                ->paginate(36);
+            $students->appends(['query' => $query]);
         } else {
-            $students = Student::latest()->paginate(12);
+            $students = Student::oldest()->paginate(36);
         }
 
         return view("/admin.index", compact('students'));
@@ -32,6 +36,7 @@ class HomeController extends Controller
 
     public function import()
     {
+
         Excel::import(new \App\Imports\StudentImport, request()->file('students_data'));
 
         return redirect('admin')->with('mess', 'Data berhasil diimport');

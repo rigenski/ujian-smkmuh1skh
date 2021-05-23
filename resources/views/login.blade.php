@@ -7,7 +7,7 @@
 <nav id="navbar-main" class="navbar navbar-horizontal navbar-transparent navbar-main navbar-expand-lg navbar-light">
     <div class="container">
       <a class="navbar-brand" href="dashboard.html">
-        <img src="../assets/img/brand/white.png">
+        <img src="{{ asset('assets/img/brand/logo.png') }}">
       </a>
       </div>
     </div>
@@ -39,7 +39,7 @@
                     <h1>Login!</h1>
               <p class="text-lead ">Masukkan data dengan benar</p>
                   </div>
-              <form role="form" action="/postLogin" method="post">
+              <form role="form" action="{{route('post-login')}}" method="post">
                 @csrf
                 <div class="form-group mb-3">
                   <div class="input-group input-group-merge input-group-alternative">
